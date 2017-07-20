@@ -17,7 +17,11 @@ salt-minion:
     - enable: True
     - name: {{ salt_settings.minion_service }}
   cmd.wait:
+  {%- if grains['kernel'] == 'Windows' %}
+    - name: 'C:\salt\salt-call.bat --local service.restart salt-minion'
+  {%- else %}
     - name: 'sleep 5; salt-call --local service.restart salt-minion'
+  {%- endif %}
     - order: last
     - bg: True
     - watch:
