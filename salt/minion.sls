@@ -16,7 +16,7 @@ salt-minion:
   service.enabled:
     - enable: True
     - name: {{ salt_settings.minion_service }}
-  cmd.wait:
+  cmd.run:
   {%- if grains['kernel'] == 'Windows' %}
     - name: 'C:\salt\salt-call.bat --local service.restart salt-minion'
   {%- else %}
@@ -24,7 +24,7 @@ salt-minion:
   {%- endif %}
     - order: last
     - bg: True
-    - watch:
+    - onchanges:
 {% if salt_settings.install_packages %}
       - pkg: salt-minion
 {% endif %}
