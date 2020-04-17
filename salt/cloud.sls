@@ -48,7 +48,7 @@ cloud-cert-{{ cert }}-pem:
 {% endfor %}
 {% endfor %}
 
-{% for cloud_section in ["maps", "profiles", "providers"] %}
+{% for cloud_section in ["providers", "profiles", "maps"] %}
 salt-cloud-{{ cloud_section }}:
   file.recurse:
     - name: {{ salt_settings.config_path }}/cloud.{{ cloud_section }}.d
